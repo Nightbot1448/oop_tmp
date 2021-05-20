@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Shapes
 {
@@ -47,20 +47,20 @@ namespace Shapes
 
         public override int CompareTo(object obj)
         {
-            var shape = obj as Shape;
-            if(shape != null)
+            if (obj is Shape shape)
             {
-                if (GetArea() < shape.GetArea())
-                    return -1;
-                else if (GetArea() > shape.GetArea())
-                    return 1;
-                else
-                    return 0;
+                var area1 = GetArea();
+                var area2 = shape.GetArea();
+                return area1.CompareTo(area2);
+
             }
-            else
-            {
-                throw new InvalidCastException("Can't compare Shape object with another type");
-            }
+            throw new InvalidCastException("Can't compare Shape object with another type");
+        
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Ellipse: {0}, {1}; {2}, {3}", Location.X, Location.Y, _radiusX, _radiusY);
         }
 
         public string JSONSerialize()
@@ -68,5 +68,6 @@ namespace Shapes
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
             return JsonConvert.SerializeObject(this, settings);
         }
+
     }
 }

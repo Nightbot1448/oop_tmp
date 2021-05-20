@@ -11,7 +11,7 @@ namespace ConApp
     {
         private const int SHAPE_COUNT = 5;
 
-        private static Random _random = new Random(DateTime.Now.Millisecond);
+        private static Random _random = new Random();
 
 
         static void CreateShapes(ref ICollection<Shape> shapes)
@@ -21,11 +21,11 @@ namespace ConApp
                 int x = _random.Next();
                 int y = _random.Next();
 
-                bool flag = _random.Next() % 2 == 0 ? true : false;
+                bool flag = _random.Next() % 2 == 0;
                 if (flag)
-                    shapes.Add(new Ellipse(x, y, _random.Next() % 40, _random.Next() % 40));
+                    shapes.Add(new Ellipse(x, y, _random.Next() % 10, _random.Next() % 10));
                 else
-                    shapes.Add(new Circle(x, y, _random.Next() % 40));
+                    shapes.Add(new Circle(x, y, _random.Next() % 10));
             }
         }
 
@@ -34,7 +34,8 @@ namespace ConApp
             var factories = new List<ShapeFactory>(new ShapeFactory[]
                 {
                     new EllipseFactory(),
-                    new CircleFactory()
+                    new CircleFactory(),
+                    new SquareFactory()
                 });
             for (int i = 0; i < SHAPE_COUNT; i++)
             {
@@ -43,8 +44,12 @@ namespace ConApp
 
                 int x = _random.Next();
                 int y = _random.Next();
-                shapes.Add(factory.CreateShape(x, y));
+                Shape shape = factory.CreateShape(x, y);
+                if (shapes is SortedSet<Shape>)
+                    Console.WriteLine(shape);
+                shapes.Add(shape);
             }
+            Console.WriteLine("Count of figures: {0}", shapes.Count);
         }
 
         static void Main(string[] args)
@@ -55,8 +60,7 @@ namespace ConApp
 
             foreach (var shape in shapes)
             {
-                Console.Write("Object: {0}  ", shape.GetType());
-                Console.WriteLine(shape.GetArea());
+                Console.WriteLine(shape);
             }
             Console.WriteLine();
 
@@ -76,11 +80,13 @@ namespace ConApp
             }
             Console.WriteLine();
 
-
+            //shapes
+            Console.WriteLine("Generating for Set:");
             ICollection<Shape> sortedShapes = new SortedSet<Shape>();
             CreateShapesByFactory(ref sortedShapes);
             Console.WriteLine("Sorted Shapes:");
-            sortedShapes.ToList<Shape>().ForEach(i => Console.WriteLine("{0} | Area:{1}", i, i.GetArea()));
+
+            sortedShapes.ToList().ForEach(i => Console.WriteLine(i));
 
             Console.ReadKey();
         }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Shapes
 {
     public abstract class Shape : IComparable
     {
+        [JsonProperty]
         protected Location _location;
 
         public Shape(int x, int y)

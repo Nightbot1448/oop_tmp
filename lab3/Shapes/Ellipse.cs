@@ -18,8 +18,7 @@ namespace Shapes
         public override void MoveTo(int x, int y)
         {
             base.MoveTo(x, y);
-            if (LocationChanged != null)
-                LocationChanged(this, _location);
+            LocationChanged?.Invoke(this, _location);
         }
 
         public override double GetArea()
@@ -27,22 +26,10 @@ namespace Shapes
             return Math.PI * _radiusX *_radiusY;
         }
 
-        public override int CompareTo(object obj)
+        public override string ToString()
         {
-            var shape = obj as Shape;
-            if(shape != null)
-            {
-                if (GetArea() < shape.GetArea())
-                    return -1;
-                else if (GetArea() > shape.GetArea())
-                    return 1;
-                else
-                    return 0;
-            }
-            else
-            {
-                throw new InvalidCastException("Can't compare Shape object with another type");
-            }
+            return string.Format("Ellipse: ({0}, {1} ; {2} {3})", _location.X, _location.Y, _radiusX, _radiusY);
         }
+
     }
 }

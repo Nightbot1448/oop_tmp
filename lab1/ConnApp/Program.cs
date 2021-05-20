@@ -1,5 +1,4 @@
 ﻿using Shapes;
-using System;
 
 namespace ConnApp
 {
@@ -7,17 +6,12 @@ namespace ConnApp
     {
         static void Main(string[] args)
         {
-            /*
-            Console.WriteLine("Hello world!!!");
-            Console.ReadKey(); 
-            */
 
-            /*
-            Ellipse ellipse = new Ellipse(10, 10, 100, 50);
-            Circle circle = new Circle(20, 20, 50);
+            Ellipse ellipse = new Ellipse(10, 10, 120, 50);
+            Circle circle = new Circle(20, 20, 70);
+
             ellipse.Show();
             circle.Show();
-            */
         }
     }
 }

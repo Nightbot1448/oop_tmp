@@ -2,11 +2,11 @@
 
 namespace Shapes
 {
-    public class Circle : Ellipse
+    public class Circle : Shape
     {
         private int _radius;
 
-        public Circle(int x, int y, int radius) : base(x, y, radius, radius)
+        public Circle(int x, int y, int radius) : base(x, y)
         {
             _radius = radius;
         }

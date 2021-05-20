@@ -1,9 +1,6 @@
 ﻿using Shapes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ConApp
 {
@@ -11,9 +8,16 @@ namespace ConApp
     {
         static void Main(string[] args)
         {
-            Ellipse ellipse = new Ellipse(10, 10, 50, 15);
+            Ellipse ellipse = new Ellipse(20, 10, 50, 15);
+            Console.WriteLine(ellipse);
+
             var str = ellipse.JSONSerialize();
             Console.WriteLine(str);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            Shape el = JsonConvert.DeserializeObject<Shape>(str, settings);
+
+            Console.WriteLine(el);
             Console.ReadKey();
         }
     }

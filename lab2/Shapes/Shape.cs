@@ -4,11 +4,11 @@ namespace Shapes
 {
     public abstract class Shape : IComparable
     {
-        private Location _location;
+        protected Location _location;
 
         protected Shape(int x, int y)
         {
-            _location = new Location() { X = x, Y = y };
+            _location = new Location { X = x, Y = y };
         }
 
         public void MoveTo(int x, int y)
@@ -19,7 +19,20 @@ namespace Shapes
 
         public abstract double GetArea();
 
-        //сравнивать будем по площади фигуры
-        public abstract int CompareTo(object obj);
+        public int CompareTo(object obj)
+        {
+            if (obj is Shape shape)
+            {
+                double area_1 = GetArea();
+                double area_2 = shape.GetArea();
+                return area_1.CompareTo(area_2);
+            }
+            throw new InvalidCastException("Can't compare Shape object with another type");
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Object: {0}; area: {1}", GetType().Name, GetArea());
+        }
     }
 }

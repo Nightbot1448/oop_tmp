@@ -19,7 +19,15 @@ namespace Shapes
 
         public abstract double GetArea();
 
-        //сравнивать будем по площади фигуры
-        public abstract int CompareTo(object obj);
+        public int CompareTo(object obj)
+        {
+            if (obj is Shape shape)
+            {
+                double area_1 = GetArea();
+                double area_2 = shape.GetArea();
+                return area_1.CompareTo(area_2);
+            }
+            throw new InvalidCastException("Can't compare Shape object with another type");
+        }
     }
 }
